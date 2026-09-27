@@ -76,6 +76,20 @@
 .gb-meta time,
 .gb-page { opacity: 0.55; font-size: 12px; }
 .gb-empty { text-align: center; opacity: 0.7; padding: 36px 16px; }
+.visitor-badge {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  border-radius: 999px;
+  padding: 6px 10px;
+  white-space: nowrap;
+  opacity: 0.85;
+}
+header.top,
+.app-bar {
+  flex-wrap: wrap;
+}
 @media (max-width: 800px) {
   .gb-grid { grid-template-columns: 1fr; }
 }

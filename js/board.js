@@ -52,6 +52,7 @@
   }
 
   const board = BOARDS[boardId()] || BOARDS.dunner;
+  const site = boardId();
 
   function esc(s) {
     return String(s).replace(/[&<>"']/g, function (c) {
@@ -163,6 +164,56 @@
     });
   }
 
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", mount);
-  else mount();
+  function formatCount(n) {
+    return Number(n).toLocaleString("en-US");
+  }
+
+  function injectBadge(label) {
+    let badge = document.getElementById("visitorBadge");
+    if (!badge) {
+      badge = document.createElement("div");
+      badge.id = "visitorBadge";
+      badge.className = "visitor-badge";
+      const bar = document.querySelector(".app-bar");
+      const header = document.querySelector("header.top") || document.querySelector("header");
+      const hub = document.querySelector(".w");
+      if (bar) bar.appendChild(badge);
+      else if (header) header.appendChild(badge);
+      else if (hub) hub.appendChild(badge);
+      else document.body.appendChild(badge);
+    }
+    badge.textContent = label;
+  }
+
+  function countVisitors() {
+    const seenKey = "visitor.seen." + site + ".v1";
+    const localKey = "visitor.count." + site + ".v1";
+    const firstVisit = localStorage.getItem(seenKey) !== "1";
+    let local = parseInt(localStorage.getItem(localKey) || "0", 10) || 0;
+    if (firstVisit) {
+      local += 1;
+      localStorage.setItem(seenKey, "1");
+      localStorage.setItem(localKey, String(local));
+    }
+    injectBadge(formatCount(local) + " visitors");
+
+    const path = firstVisit ? "/hit/" : "/get/";
+    fetch("https://abacus.jasoncameron.dev" + path + "saas-demos/" + site, { cache: "no-store" })
+      .then(function (res) { return res.ok ? res.json() : Promise.reject(); })
+      .then(function (data) {
+        const n = Number(data && (data.value != null ? data.value : data.count));
+        if (!n) return;
+        if (n > local) localStorage.setItem(localKey, String(n));
+        injectBadge(formatCount(n) + " visitors");
+      })
+      .catch(function () {});
+  }
+
+  function boot() {
+    countVisitors();
+    mount();
+  }
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
+  else boot();
 })();

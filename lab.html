@@ -21,7 +21,9 @@
     b { display: block; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.7; margin-bottom: 10px; }
     h2 { font-family: Fraunces, serif; margin: 0 0 8px; font-size: 28px; }
     .btn { display: inline-flex; align-items: center; justify-content: center; border: 0; border-radius: 999px; padding: 10px 16px; cursor: pointer; font-weight: 700; background: #f4eee4; color: #12110f; }
-    @media (max-width: 800px) { .g { grid-template-columns: 1fr; } }
+    .w { position: relative; }
+    .visitor-badge { position: absolute; top: 0; right: 0; }
+    @media (max-width: 800px) { .g { grid-template-columns: 1fr; } .visitor-badge { position: static; margin: 12px 0 0; } }
   </style>
 </head>
 <body>
