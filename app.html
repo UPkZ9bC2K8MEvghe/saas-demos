@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dunner workspace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,620&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body class="app-shell">
+  <header class="app-bar">
+    <a class="brand" href="index.html"><span class="mark">D</span> Dunner</a>
+    <div class="tabs">
+      <button class="tab active" data-tab="new">New invoice</button>
+      <button class="tab" data-tab="owed">Who owes you</button>
+      <button class="tab" data-tab="paid">Money in</button>
+      <button class="tab" data-tab="io">Import / export</button>
+    </div>
+    <div class="right-actions">
+      <button class="btn teal" type="button" id="ioBtn">Import / export</button>
+      <button class="btn ghost" id="seedBtn">Load sample data</button>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <section id="panel-new" class="panel show">
+      <div class="grid-2">
+        <form id="invoiceForm">
+          <div class="kicker">01 New invoice</div>
+          <h2 style="margin-top:6px">Send it. The link collects.</h2>
+          <label>Client name</label>
+          <input name="client" required placeholder="Northline Studio" />
+          <label>Client email</label>
+          <input name="email" type="email" required placeholder="ap@client.com" />
+          <div class="grid-2" style="gap:12px">
+            <div>
+              <label>Currency</label>
+              <select name="currency">
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="GBP">GBP</option>
+                <option value="CNY">CNY</option>
+                <option value="JPY">JPY</option>
+              </select>
+            </div>
+            <div>
+              <label>Terms</label>
+              <select name="terms">
+                <option value="0">Due on receipt</option>
+                <option value="7">Net 7</option>
+                <option value="14" selected>Net 14</option>
+                <option value="30">Net 30</option>
+              </select>
+            </div>
+          </div>
+          <label>FX lock</label>
+          <select name="fxMode">
+            <option value="send">Lock rate on send day</option>
+            <option value="pay">Settle at payday rate</option>
+          </select>
+          <label>Line items</label>
+          <table class="items" id="itemsTable">
+            <thead><tr><th>Description</th><th>Qty</th><th>Unit price</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><input name="desc" placeholder="Brand identity" required /></td>
+                <td><input name="qty" type="number" min="1" value="1" /></td>
+                <td><input name="price" type="number" min="0" step="0.01" placeholder="1800" required /></td>
+              </tr>
+            </tbody>
+          </table>
+          <button type="button" class="btn ghost" id="addLine" style="margin-top:8px">Add a line</button>
+          <label>Notes</label>
+          <textarea name="note" placeholder="Payment notes, scope…"></textarea>
+          <div class="toolbar" style="margin-top:16px">
+            <button class="btn teal" type="submit">Create and send</button>
+            <span class="hint" id="fxHint">Fetching mid-market rate…</span>
+          </div>
+        </form>
+        <aside class="preview" id="preview">
+          <div class="inv-top"><span id="pNo">INV-····</span><span id="pDue">Due —</span></div>
+          <div class="inv-client" id="pClient">New client</div>
+          <div class="inv-amt" id="pAmt">$0.00</div>
+          <div id="pLines"></div>
+          <div class="row"><span>FX</span><span id="pFx">—</span></div>
+          <div class="row"><span>USD equiv.</span><span id="pUsd">$0.00</span></div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="panel-owed" class="panel">
+      <div class="kicker">02 Who owes you</div>
+      <h2 style="margin:6px 0 4px">Auto-nudge at day 0 / 7 / 14</h2>
+      <p class="sub">Copy is editable. In this demo, one click opens the reminder. Import / export sits top-right.</p>
+      <div class="toolbar">
+        <button type="button" class="btn teal io-jump">Open import / export</button>
+        <button type="button" class="btn ghost" data-quick-export="csv">Export CSV</button>
+        <button type="button" class="btn ghost" data-quick-export="json">Export JSON</button>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><span>Outstanding</span><b id="owedTotal">$0</b></div>
+        <div class="stat"><span>Overdue</span><b id="overdueCount">0</b></div>
+        <div class="stat"><span>Next nudge</span><b id="nextChase">—</b></div>
+      </div>
+      <div class="list" id="owedList"></div>
+    </section>
+
+    <section id="panel-paid" class="panel">
+      <div class="kicker">03 Money in</div>
+      <h2 style="margin:6px 0 4px">Paid, with the rate you locked</h2>
+      <div class="toolbar">
+        <button type="button" class="btn teal io-jump">Open import / export</button>
+        <button type="button" class="btn ghost" data-quick-export="csv">Export CSV</button>
+        <button type="button" class="btn ghost" data-quick-export="xls">Export Excel</button>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><span>Collected USD</span><b id="paidUsd">$0</b></div>
+        <div class="stat"><span>Settled</span><b id="paidCount">0</b></div>
+        <div class="stat"><span>FX protected</span><b id="fxSaved">$0</b></div>
+      </div>
+      <table class="table" id="paidTable">
+        <thead>
+          <tr><th>Invoice</th><th>Client</th><th>Original</th><th>Locked rate</th><th>USD in</th><th>Date</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <section id="panel-io" class="panel">
+      <div class="kicker">04 Import / export</div>
+      <h2 style="margin:6px 0 4px">Take the books with you. Bring books in.</h2>
+      <p class="sub">Export 9 formats. Import JSON, JSONL, CSV, TSV, XML, Excel XML, YAML, Markdown, or HTML. English headers preferred; common aliases still map.</p>
+      <div class="stat-row">
+        <div class="stat"><span>Invoices now</span><b id="ioCount">0</b></div>
+        <div class="stat"><span>Last import</span><b id="ioLast">—</b></div>
+        <div class="stat"><span>Formats</span><b>9</b></div>
+      </div>
+      <div class="io-grid">
+        <div class="io-block">
+          <h3>Export</h3>
+          <p class="hint">Full ledger. CSV ships with a BOM so Excel opens cleanly.</p>
+          <div class="fmt-grid" id="exportBtns"></div>
+        </div>
+        <div class="io-block">
+          <h3>Import</h3>
+          <p class="hint">Merge overwrites matching invoice numbers. Replace clears first.</p>
+          <div class="toolbar">
+            <label class="btn teal" style="margin:0">Choose file
+              <input type="file" id="importFile" hidden accept=".json,.jsonl,.ndjson,.csv,.tsv,.xml,.yml,.yaml,.md,.markdown,.html,.htm,.xls,text/*,application/json,application/xml" />
+            </label>
+            <button type="button" class="btn ghost" id="tplCsv">Download CSV template</button>
+          </div>
+          <textarea id="importPaste" placeholder="Or paste JSON / CSV / YAML / XML / Markdown here…"></textarea>
+          <div class="toolbar" style="margin-top:12px">
+            <button type="button" class="btn teal" id="importMerge">Merge import</button>
+            <button type="button" class="btn ghost" id="importReplace">Replace all</button>
+          </div>
+          <p class="hint" id="ioMsg">Nothing imported yet.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal-bg" id="mailModal">
+    <div class="modal">
+      <div class="kicker" id="mailKicker">Reminder email</div>
+      <h3 id="mailTitle" style="margin:8px 0 12px">Ready to send</h3>
+      <div class="mail" id="mailBody"></div>
+      <p class="hint" id="mailHint"></p>
+      <div class="toolbar" style="margin-top:16px">
+        <button class="btn teal" id="mailSend">Mark as sent</button>
+        <button class="btn ghost" id="mailClose">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/io.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tenflow — Pay per workflow, not per Zapier task</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+  <header class="wrap top">
+    <a class="brand" href="index.html"><span class="mark">10</span> Tenflow</a>
+    <nav class="nav">
+      <a href="#why">Why not task billing</a>
+      <a href="#tpl">Templates</a>
+      <a href="#price">Pricing</a>
+    </nav>
+    <a class="btn" href="app.html">Open studio</a>
+  </header>
+
+  <section class="wrap hero">
+    <div>
+      <div class="kicker">Simple automation for small operators</div>
+      <h1>Billed per workflow. Never per task run.</h1>
+      <p class="lede">Form to CRM, new order to Slack, lead to email — that's the job. 10 workflows for $29/mo, or $149 lifetime. Run it 200 times or 2,000. The price does not move.</p>
+      <div class="hero-actions">
+        <a class="btn" href="app.html">Three nodes and it runs</a>
+        <a class="btn ghost" href="#price">See pricing</a>
+      </div>
+      <p class="note">A 5-step Zap × 200 runs/month = 1,000 Zapier tasks, which dumps you into the $99 plan. Tenflow does not count tasks.</p>
+    </div>
+    <div class="canvas">
+      <div class="cost">Zapier estimate: $99/mo<br />Tenflow: 1 workflow</div>
+      <div class="node trigger"><div class="t">TRIGGER</div><h3>Typeform submitted</h3></div>
+      <div class="pipe"></div>
+      <div class="node"><div class="t">FILTER</div><h3>Budget ≥ $2,000</h3></div>
+      <div class="pipe"></div>
+      <div class="node action"><div class="t">ACTION</div><h3>HubSpot + Slack #leads</h3></div>
+    </div>
+  </section>
+
+  <section class="strip" id="why">
+    <div class="wrap">
+      <div>
+        <p class="quote">A 5-step zap run 200 times becomes 1,000 tasks. The bill jumps to $99.</p>
+        <div class="who">Field case · $15,000+/year</div>
+      </div>
+      <div>
+        <p class="quote">A cheap workflow becomes expensive fast if nobody can debug.</p>
+        <div class="who">r/automation</div>
+      </div>
+      <div>
+        <p class="quote">Small owners are not engineers. Trigger plus action is enough.</p>
+        <div class="who">Tenflow product rule</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <h2>Trigger, action, run replay. That's the UI.</h2>
+    <p class="sub">Not an enterprise orchestrator. Every run keeps a replay. If a step dies, you can see which one.</p>
+    <div class="three">
+      <div class="card">
+        <h3>Priced by count</h3>
+        <div class="mini"><span>Workflows</span><span>Up to 10</span></div>
+        <div class="mini"><span>Runs</span><span>Unlimited</span></div>
+        <div class="mini"><span>Nodes</span><span>Trigger + action</span></div>
+      </div>
+      <div class="card">
+        <h3>Run replay</h3>
+        <div class="mini"><span>Each step in</span><span>Visible</span></div>
+        <div class="mini"><span>Failure</span><span>Highlighted</span></div>
+        <div class="mini"><span>Rerun</span><span>Built into the demo</span></div>
+      </div>
+      <div class="card">
+        <h3>80/20 jobs</h3>
+        <div class="mini"><span>Form → CRM</span><span>Template</span></div>
+        <div class="mini"><span>Order → Slack</span><span>Template</span></div>
+        <div class="mini"><span>Lead → email</span><span>Template</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section" id="tpl">
+    <h2>Ready-made. One click into the studio.</h2>
+    <p class="sub">MVP ships the high-frequency templates. A real product would hold 50. This demo covers the ones Zapier taxes hardest.</p>
+    <div class="tpls" id="homeTpls"></div>
+  </section>
+
+  <section class="wrap section" id="price">
+    <h2>Move your 10 Zaps over.</h2>
+    <div class="pricing">
+      <div class="price">
+        <div class="kicker">Monthly</div>
+        <div class="amt">$29</div>
+        <ul>
+          <li>10 workflows, unlimited runs</li>
+          <li>Replay + failure highlight</li>
+          <li>Versus Zapier's $99 task tier</li>
+        </ul>
+      </div>
+      <div class="price featured">
+        <div class="kicker">Pay once</div>
+        <div class="amt">$149</div>
+        <ul>
+          <li>Same 10-workflow cap</li>
+          <li>No task-meter billing</li>
+          <li>For owners with a few fixed flows</li>
+        </ul>
+        <a class="btn" href="app.html" style="margin-top:16px">Open studio</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="wrap">
+    <span>Tenflow · workflow automation demo</span>
+    <span>Data stays in this browser</span>
+  </footer>
+  <script>
+    const tpls = [
+      ["Form → CRM", "Typeform into HubSpot"],
+      ["New order → Slack", "Shopify into #orders"],
+      ["Lead → email sequence", "New lead, 3 emails"],
+      ["Calendar → reminder", "Booking into Notion"],
+      ["Payment → invoice", "Stripe fires billing"],
+      ["GitHub issue → Linear", "Bugs become cards"],
+      ["Airtable → email", "Status-change notice"],
+      ["Webhook relay", "Forward any POST"]
+    ];
+    document.getElementById("homeTpls").innerHTML = tpls.map(([a,b]) =>
+      `<a class="card tpl" href="app.html?tpl=${encodeURIComponent(a)}"><h3>${a}</h3><p class="hint">${b}</p></a>`
+    ).join("");
+  </script>
+</body>
+</html>

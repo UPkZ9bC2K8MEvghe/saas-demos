@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Warmly studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+  <header class="app-bar">
+    <a class="brand" href="index.html">Warmly</a>
+    <div class="tabs">
+      <button class="tab active" data-tab="week">This week</button>
+      <button class="tab" data-tab="page">Booking page</button>
+      <button class="tab" data-tab="team">5 seats</button>
+    </div>
+    <a class="btn" href="book.html" target="_blank">Open public page</a>
+  </header>
+  <main class="app">
+    <section id="panel-week" class="panel show">
+      <div class="kicker">This week</div>
+      <h2 style="margin:6px 0 8px">Who's coming, who moved, who cancelled</h2>
+      <div class="stat-row">
+        <div class="stat"><span>Confirmed</span><b id="stOk">0</b></div>
+        <div class="stat"><span>Wants to move</span><b id="stShift">0</b></div>
+        <div class="stat"><span>Seats used</span><b id="stSeat">1 / 5</b></div>
+      </div>
+      <div class="list" id="bookList"></div>
+    </section>
+    <section id="panel-page" class="panel">
+      <div class="grid-2">
+        <form id="hostForm">
+          <div class="kicker">Booking page copy</div>
+          <h2 style="margin:6px 0 8px">Photo, one-liner, topics</h2>
+          <label>Name</label><input name="name" />
+          <label>One-liner</label><input name="bio" />
+          <label>Topics (comma-separated, duration in the label)</label>
+          <input name="topics" />
+          <label>Email (demo confirmation)</label><input name="email" />
+          <label>Timezone</label>
+          <select name="tz">
+            <option>America/New_York</option>
+            <option>Europe/London</option>
+            <option>Asia/Singapore</option>
+          </select>
+          <button class="btn" style="margin-top:16px">Save and preview</button>
+        </form>
+        <aside class="book-card" id="miniPreview"></aside>
+      </div>
+    </section>
+    <section id="panel-team" class="panel">
+      <div class="kicker">Small team</div>
+      <h2 style="margin:6px 0 8px">$29 includes 5 seats. No per-seat monthlies.</h2>
+      <div class="seats" id="seats"></div>
+    </section>
+  </main>
+  <div class="modal-bg" id="mailModal">
+    <div class="modal">
+      <div class="kicker" id="mailKicker">Calendar update</div>
+      <h3 id="mailTitle" style="margin:8px 0 12px"></h3>
+      <div class="mail" id="mailBody"></div>
+      <div style="display:flex;gap:8px;margin-top:14px">
+        <button class="btn" id="mailOk">Got it</button>
+        <button class="btn ghost" id="mailClose">Close</button>
+      </div>
+    </div>
+  </div>
+  <script src="js/shared.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

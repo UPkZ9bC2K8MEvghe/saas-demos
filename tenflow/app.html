@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tenflow studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+  <header class="app-bar">
+    <a class="brand" href="index.html"><span class="mark">10</span> Tenflow</a>
+    <div class="tabs">
+      <button class="tab active" data-tab="flow">Workflows</button>
+      <button class="tab" data-tab="runs">Run replay</button>
+      <button class="tab" data-tab="billing">Billing</button>
+    </div>
+    <span class="hint" id="quota">0 / 10 workflows</span>
+  </header>
+  <main class="app">
+    <section id="panel-flow" class="panel show">
+      <div class="split">
+        <aside class="col">
+          <div class="kicker">Workflow list</div>
+          <h3 style="margin:8px 0 12px">Pick a template or start empty</h3>
+          <div id="wfList"></div>
+          <button class="btn ghost" id="newWf" style="width:100%;margin-top:8px">New empty workflow</button>
+        </aside>
+        <section class="col">
+          <div class="kicker" id="edKicker">Editor</div>
+          <h2 id="edTitle" style="margin:6px 0 12px">Select one to start</h2>
+          <div class="stage" id="stage"></div>
+        </section>
+        <aside class="col">
+          <div class="kicker">Node setup</div>
+          <div id="cfg"></div>
+          <div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap">
+            <button class="btn" id="runBtn">Run once</button>
+            <button class="btn ghost" id="saveBtn">Save</button>
+          </div>
+          <p class="hint" id="runHint"></p>
+        </aside>
+      </div>
+    </section>
+    <section id="panel-runs" class="panel">
+      <div class="kicker">Run replay</div>
+      <h2 style="margin:6px 0 14px">If a step dies, open it</h2>
+      <div class="stat-row">
+        <div class="stat"><span>Runs</span><b id="runCount">0</b></div>
+        <div class="stat"><span>Failed</span><b id="failCount">0</b></div>
+        <div class="stat"><span>If billed per task</span><b id="zapCost">$0</b></div>
+      </div>
+      <div id="runList"></div>
+    </section>
+    <section id="panel-billing" class="panel">
+      <div class="kicker">Billing contrast</div>
+      <h2 style="margin:6px 0 10px">Same runs. Two invoices.</h2>
+      <p class="sub">Zapier counts every step as a task. Tenflow counts workflows. Run volume does not change the bill.</p>
+      <div class="stat-row">
+        <div class="stat"><span>Workflows</span><b id="billWf">0 / 10</b></div>
+        <div class="stat"><span>Tenflow</span><b id="billTen">$149 lifetime</b></div>
+        <div class="stat"><span>Zapier estimate</span><b id="billZap">$0</b></div>
+      </div>
+      <div class="log" id="billLog"></div>
+    </section>
+  </main>
+  <script src="js/app.js"></script>
+</body>
+</html>

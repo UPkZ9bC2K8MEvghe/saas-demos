@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dunner — Send the invoice. Get paid without chasing.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,620&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+  <header class="wrap top">
+    <a class="brand" href="index.html"><span class="mark">D</span> Dunner</a>
+    <nav class="nav">
+      <a href="#product">Three pages</a>
+      <a href="#fx">FX lock</a>
+      <a href="#price">Pricing</a>
+    </nav>
+    <a class="btn" href="app.html">Open workspace</a>
+  </header>
+
+  <section class="wrap hero">
+    <div>
+      <div class="kicker">For freelancers who invoice across borders</div>
+      <h1>Chasing invoices shouldn't be a second job.</h1>
+      <p class="lede">Send an invoice in one click, auto-nudge at 0 / 7 / 14 days, lock the FX rate when you send. Three screens only: new invoice, who owes you, money in.</p>
+      <div class="hero-actions">
+        <a class="btn teal" href="app.html">Send your first invoice in 5 minutes</a>
+        <a class="btn ghost" href="#price">$99 lifetime, or $19/mo</a>
+      </div>
+      <div class="price-note">FreshBooks is $33/mo. Dunner is $99 once — invoicing, dunning, and FX lock included. Export JSON, CSV, XML, YAML, Markdown, or Excel.</div>
+    </div>
+    <div class="hero-papers">
+      <article class="paper-card one">
+        <div class="inv-top"><span>INV-1042</span><span>Due in 2 days</span></div>
+        <div class="inv-client">Northline Studio</div>
+        <div class="inv-amt">$2,480.00</div>
+        <div class="row"><span>Brand identity</span><span>$1,800</span></div>
+        <div class="row"><span>Landing page</span><span>$680</span></div>
+        <div class="stamp">OVERDUE</div>
+      </article>
+      <article class="paper-card two">
+        <div class="inv-top"><span>INV-1038</span><span>Paid · EUR locked</span></div>
+        <div class="inv-client">Atelier Mira</div>
+        <div class="inv-amt">€1,920.00</div>
+        <div class="row"><span>FX at send</span><span>1 EUR = 1.087 USD</span></div>
+        <div class="row"><span>You keep</span><span>$2,087.04</span></div>
+        <div class="stamp paid">PAID</div>
+      </article>
+    </div>
+  </section>
+
+  <section class="strip">
+    <div class="wrap">
+      <div>
+        <p class="quote">“Chasing invoices like it's a part-time job.”</p>
+        <div class="who">r/freelance</div>
+      </div>
+      <div>
+        <p class="quote">“Stuck on invoicing tools that charge $150–200/month for things that should cost $30.”</p>
+        <div class="who">r/SaaS</div>
+      </div>
+      <div>
+        <p class="quote">“Watching currency conversion quietly eat into what I'm owed.”</p>
+        <div class="who">Freelancer, EU → US</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section" id="product">
+    <h2>The whole product is three pages.</h2>
+    <p class="sub">No accounting suite. No project board. No CRM. You send, you watch what's owed, money lands.</p>
+    <div class="three">
+      <div class="screen">
+        <span class="pill">01 New invoice</span>
+        <h3>Client, line items, pay link</h3>
+        <div class="mini-row"><span>Client</span><span>Northline Studio</span></div>
+        <div class="mini-row"><span>Due</span><span>Net 14</span></div>
+        <div class="mini-row"><span>Currency</span><span>USD · locked</span></div>
+        <div class="mini-row"><span>Pay</span><span>Embedded checkout</span></div>
+      </div>
+      <div class="screen">
+        <span class="pill">02 Who owes you</span>
+        <h3>Auto-nudge at 0 / 7 / 14 days</h3>
+        <div class="mini-row"><span><span class="dot"></span> Mira · day 0</span><span>Reminder sent</span></div>
+        <div class="mini-row"><span><span class="dot"></span> Northline · day 7</span><span class="bad">Chasing</span></div>
+        <div class="mini-row"><span><span class="dot"></span> Helix · day 14</span><span class="bad">Final notice</span></div>
+        <div class="mini-row"><span>Copy is editable</span><span>3 templates</span></div>
+      </div>
+      <div class="screen">
+        <span class="pill">03 Money in</span>
+        <h3>Who paid, how much, at what rate</h3>
+        <div class="mini-row"><span>Atelier Mira</span><span class="ok">€1,920</span></div>
+        <div class="mini-row"><span>Locked 1.087</span><span>$2,087</span></div>
+        <div class="mini-row"><span>Helix Labs</span><span class="ok">$640</span></div>
+        <div class="mini-row"><span>This month</span><span>$2,727</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section" id="fx">
+    <div class="fx">
+      <div>
+        <div class="kicker">FX lock</div>
+        <h2>If the rate jumps on payday, that loss isn't yours.</h2>
+        <p class="sub">Lock the mid-market rate when you send. Clients pay in invoice currency. You keep the locked USD equivalent. Demo uses a public mid rate; production can sit on Stripe Checkout.</p>
+        <a class="btn teal" href="app.html">Try a cross-currency invoice</a>
+      </div>
+      <div>
+        <div class="big-num">1.087</div>
+        <p>EUR → USD locked on send day. Client pays 11 days late. You still get the amount you quoted.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section" id="price">
+    <h2>Pricing stays boring on purpose.</h2>
+    <p class="sub">Lifetime pricing against subscription fatigue. Full product. No per-invoice meter.</p>
+    <div class="pricing">
+      <div class="price-card">
+        <div class="kicker">Monthly</div>
+        <div class="amt">$19</div>
+        <ul>
+          <li>Unlimited invoices and nudges</li>
+          <li>FX lock</li>
+          <li>Checkout links</li>
+        </ul>
+        <p class="compare">FreshBooks $33/mo · QuickBooks $35/mo</p>
+      </div>
+      <div class="price-card featured">
+        <div class="kicker">Pay once</div>
+        <div class="amt">$99</div>
+        <ul>
+          <li>Same product, no monthly charge</li>
+          <li>Built for freelancers who send a dozen invoices a year</li>
+          <li>Send, chase, and book payments in the demo today</li>
+        </ul>
+        <p class="compare">Three months of FreshBooks, bought once.</p>
+        <a class="btn" href="app.html" style="margin-top:18px;background:#fffdf8;color:#0f5f58;border-color:#fffdf8;">Open workspace</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="wrap">
+    <span>Dunner · Invoice + dunning demo</span>
+    <span>Data stays in this browser. Nothing is uploaded.</span>
+  </footer>
+</body>
+</html>
