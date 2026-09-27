@@ -7,18 +7,20 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/board.css" />
   <style>
     body { margin: 0; font-family: "IBM Plex Sans", sans-serif; background: #12110f; color: #f4eee4; }
-    .w { width: min(980px, calc(100% - 36px)); margin: 48px auto 80px; }
+    .w { width: min(980px, calc(100% - 36px)); margin: 48px auto 24px; }
     h1 { font-family: Fraunces, serif; font-size: 42px; letter-spacing: -0.04em; margin: 0 0 8px; }
-    p { color: #b7aea0; }
+    .w > p { color: #b7aea0; }
     .g { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 28px; }
-    a { display: block; padding: 22px; border-radius: 16px; text-decoration: none; color: inherit; min-height: 220px; }
+    .g a { display: block; padding: 22px; border-radius: 16px; text-decoration: none; color: inherit; min-height: 220px; }
     .a { background: #12352b; }
     .b { background: #3a2a16; }
     .c { background: #3a2218; }
     b { display: block; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.7; margin-bottom: 10px; }
     h2 { font-family: Fraunces, serif; margin: 0 0 8px; font-size: 28px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; border: 0; border-radius: 999px; padding: 10px 16px; cursor: pointer; font-weight: 700; background: #f4eee4; color: #12110f; }
     @media (max-width: 800px) { .g { grid-template-columns: 1fr; } }
   </style>
 </head>
@@ -44,5 +46,6 @@
       </a>
     </div>
   </div>
+  <script src="js/board.js"></script>
 </body>
 </html>
