@@ -17,21 +17,21 @@ const DunnerIO = (() => {
     "lines",
   ];
   const ALIAS = {
-    no: ["no", "invoice", "invoice_no", "invoice_number", "number", "id", "发票号"],
-    client: ["client", "customer", "customer_name", "name", "client_name", "客户"],
-    email: ["email", "mail", "client_email", "customer_email", "邮箱"],
-    currency: ["currency", "ccy", "curr", "币种"],
-    total: ["total", "amount", "sum", "grand_total", "金额"],
-    terms: ["terms", "net", "net_days", "账期"],
-    status: ["status", "state", "paid", "状态"],
-    issuedAt: ["issuedat", "issued", "issue_date", "date", "created", "开票日"],
-    dueAt: ["dueat", "due", "due_date", "到期"],
-    paidAt: ["paidat", "paid_at", "paid_date", "付款日"],
-    fxMode: ["fxmode", "fx_mode", "fx", "汇率模式"],
-    rate: ["rate", "fx_rate", "exchange", "汇率"],
-    chased: ["chased", "reminders", "催款"],
-    note: ["note", "notes", "memo", "remarks", "备注"],
-    lines: ["lines", "items", "line_items", "行项目"],
+    no: ["no", "invoice", "invoice_no", "invoice_number", "number", "id"],
+    client: ["client", "customer", "customer_name", "name", "client_name"],
+    email: ["email", "mail", "client_email", "customer_email"],
+    currency: ["currency", "ccy", "curr"],
+    total: ["total", "amount", "sum", "grand_total"],
+    terms: ["terms", "net", "net_days"],
+    status: ["status", "state", "paid"],
+    issuedAt: ["issuedat", "issued", "issue_date", "date", "created"],
+    dueAt: ["dueat", "due", "due_date"],
+    paidAt: ["paidat", "paid_at", "paid_date"],
+    fxMode: ["fxmode", "fx_mode", "fx"],
+    rate: ["rate", "fx_rate", "exchange"],
+    chased: ["chased", "reminders", "nudges"],
+    note: ["note", "notes", "memo", "remarks"],
+    lines: ["lines", "items", "line_items"],
   };
 
   function xmlEsc(s) {
@@ -514,21 +514,21 @@ ${rows}
         const m = ln.match(/^-\s+(.+?)\s+×\s+([\d.]+)\s+@\s+([\d.]+)/);
         if (m) lines.push({ desc: m[1], qty: Number(m[2]), price: Number(m[3]) });
       });
-      const amount = (field("Amount") || field("金额")).split(/\s+/);
+      const amount = (field("Amount") || "").split(/\s+/);
       return {
         no,
-        client: rest.join(" · ") || field("Client") || field("客户"),
-        email: (field("Email") || field("邮箱")).replace("—", ""),
+        client: rest.join(" · ") || field("Client"),
+        email: field("Email").replace("—", ""),
         total: amount[0],
         currency: amount[1] || "USD",
-        status: field("Status") || field("状态"),
-        issuedAt: field("Issued") || field("开票"),
-        dueAt: field("Due") || field("到期"),
-        paidAt: (field("Paid") || field("付款")).replace("—", ""),
-        fxMode: (field("FX") || field("汇率")).startsWith("pay") ? "pay" : "send",
-        rate: (field("FX") || field("汇率")).split(/\s+/)[1],
-        chased: (field("Nudges") || field("催款")).replace("—", ""),
-        note: (field("Notes") || field("备注")).replace("—", ""),
+        status: field("Status"),
+        issuedAt: field("Issued"),
+        dueAt: field("Due"),
+        paidAt: field("Paid").replace("—", ""),
+        fxMode: field("FX").startsWith("pay") ? "pay" : "send",
+        rate: field("FX").split(/\s+/)[1],
+        chased: field("Nudges").replace("—", ""),
+        note: field("Notes").replace("—", ""),
         lines,
       };
     });
