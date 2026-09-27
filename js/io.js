@@ -29,7 +29,7 @@ const DunnerIO = (() => {
     paidAt: ["paidat", "paid_at", "paid_date"],
     fxMode: ["fxmode", "fx_mode", "fx"],
     rate: ["rate", "fx_rate", "exchange"],
-    chased: ["chased", "reminders", "nudges"],
+    chased: ["chased", "reminders"],
     note: ["note", "notes", "memo", "remarks"],
     lines: ["lines", "items", "line_items"],
   };
@@ -514,7 +514,7 @@ ${rows}
         const m = ln.match(/^-\s+(.+?)\s+×\s+([\d.]+)\s+@\s+([\d.]+)/);
         if (m) lines.push({ desc: m[1], qty: Number(m[2]), price: Number(m[3]) });
       });
-      const amount = (field("Amount") || "").split(/\s+/);
+      const amount = field("Amount").split(/\s+/);
       return {
         no,
         client: rest.join(" · ") || field("Client"),
